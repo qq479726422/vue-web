@@ -3,6 +3,7 @@
   <div class="bar">
     <router-link to="/">首页</router-link>
     <router-link to="/car">购物车</router-link>
+    <router-link to="/my">个人</router-link>
   </div>
 </template>
 

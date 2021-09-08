@@ -2,8 +2,8 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-     <router-view></router-view>   
-    <Bar />
+     <router-view></router-view>
+     <div v-if="show"><Bar /></div>   
   </div>
 </template>
 
@@ -14,11 +14,29 @@ import Bar from './components/switchBar.vue'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      show:true
+    };
+  },
   components: {
     // HelloWorld
     // Car
     Bar
-  }
+  },
+ watch: {
+   '$route':{
+    handler(to, from) { //监听路由是否变化
+      if(to.meta.showBar != undefined){
+        this.show = to.meta.showBar
+      }else{
+        this.show = true
+      }
+    },
+    immediate: true
+   }
+  
+ }
 }
 </script>
 
