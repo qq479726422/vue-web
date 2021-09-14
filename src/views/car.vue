@@ -96,36 +96,44 @@ export default {
   methods:{
     // 商品数量加减
     count(type,index,i){
+      const totalPrice = this.aggregate
+      const itemPrice = this.list[index].goods[i].price
+      const flag = this.list[index].goods[i].flag
       let num = this.list[index].goods[i].num
+      let newPrice = 0
       if(type=='add'){
         num++
+        newPrice = totalPrice+itemPrice
       }else if(type=='subtract' && num>1){
         num--
+        newPrice = totalPrice-itemPrice
       }
+      if(flag)this.aggregate = newPrice
+
       this.lists[index].goods[i].num = num
     },
     // 全选
     allSelect(){
-      const all = !this.allFlag
+      const flag = !this.allFlag
       const arr = this.list
       const len = arr.length
       let allPrice = 0
       for (let i = 0; i < len; i++) {
         const item = this.list[i]
-        item.flag = all
+        item.flag = flag
         const itm = item.goods
         for (let j = 0; j < itm.length; j++) {
-          itm[j].flag = all
-          allPrice += itm[j].price
+          itm[j].flag = flag
+          allPrice += itm[j].price*itm[j].num
         }
       }
       this.list = arr
-      this.allFlag = all
-      this.aggregate = all?allPrice:0
+      this.allFlag = flag
+      this.aggregate = flag?allPrice:0
     },
     // 同类商品选项
     typeSelect(index){
-      const totalPrice = this.aggregate
+      const totalPrice = this.aggregate //当前总价格
       let allPrice = 0
       let oldPrice = 0
       
@@ -135,11 +143,11 @@ export default {
       obj.flag = flag
       const arr = obj.goods
       const narr = arr.filter(v=>v.flag==true)
-      narr.forEach(ele => oldPrice+=ele.price);
+      narr.forEach(ele => oldPrice+=(ele.price*ele.num));//计算所有已选择的商品价格
       const nLen = narr.length
       for (let i = 0; i < arr.length; i++) {
         arr[i].flag = flag
-        allPrice += arr[i].price
+        allPrice += arr[i].price*arr[i].num//计算同类型商品的总价格
       }
       if(aLen==nLen){
         this.allFlag = true
@@ -154,7 +162,7 @@ export default {
       const totalPrice = this.aggregate
       const aLen = this.list.length
       const obj = this.list[index]
-      const itemPrice = obj.goods[i].price
+      const itemPrice = obj.goods[i].price*obj.goods[i].num
       const flag = !obj.goods[i].flag
       obj.goods[i].flag = flag
       const arr = obj.goods
