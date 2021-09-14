@@ -136,19 +136,20 @@ export default {
       const totalPrice = this.aggregate //当前总价格
       let allPrice = 0
       let oldPrice = 0
-      
       const aLen = this.list.length
       const obj = this.list[index]
       const flag = !obj.flag
       obj.flag = flag
+      const nLen = this.list.filter(v=>v.flag).length
       const arr = obj.goods
-      const narr = arr.filter(v=>v.flag==true)
+      const narr = arr.filter(v=>v.flag)
+
       narr.forEach(ele => oldPrice+=(ele.price*ele.num));//计算所有已选择的商品价格
-      const nLen = narr.length
       for (let i = 0; i < arr.length; i++) {
         arr[i].flag = flag
         allPrice += arr[i].price*arr[i].num//计算同类型商品的总价格
       }
+      
       if(aLen==nLen){
         this.allFlag = true
       }else{
