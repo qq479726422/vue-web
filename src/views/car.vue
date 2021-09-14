@@ -242,7 +242,6 @@ export default {
       this.edit = flag?true:false
       this.allFlag = false
       this.aggregate = 0 
-      if(flag)return
       const arr =this.list 
       for (let i = 0; i < arr.length; i++) {
         arr[i].flag = false
