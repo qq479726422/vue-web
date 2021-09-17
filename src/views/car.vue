@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 <template>
-  <div class="car">
+  <div v-if="list.length" class="car">
     <div class="head">
       <span @click="editCar(false)" v-show="edit">编辑</span>
       <span @click="editCar(true)" v-show="!edit">完成</span>
@@ -56,6 +56,7 @@
       </div>
     </div>
   </div>
+  <div v-else class="not-info">暂无任何商品信息！赶紧去购物...</div>
 </template>
 
 <script>
@@ -374,6 +375,7 @@ export default {
     }
   }
 }
+.not-info{font-size: .35rem;text-align: center;padding-top: 2rem;}
 .fixed-foot{
   display: flex;
   align-items: center;
