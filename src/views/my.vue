@@ -23,8 +23,8 @@ export default {
     };
   },
   created() {
-    const flag = window.sessionStorage.getItem('isLogin') || false
-    const user = JSON.parse(window.sessionStorage.getItem('user'))
+    const flag = window.localStorage.getItem('isLogin') || false
+    const user = JSON.parse(window.localStorage.getItem('user'))
     this.showBox = flag
     this.userInfo = user
   },
@@ -32,7 +32,7 @@ export default {
   computed: {},
   methods: {
     logout(){
-      window.sessionStorage.removeItem('isLogin')
+      window.localStorage.removeItem('isLogin')
       this.showBox = false
     },
     login(){this.$router.push('/login')},

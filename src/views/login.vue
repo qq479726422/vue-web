@@ -63,8 +63,8 @@ export default {
         return
       }
       const oPath = window.localStorage.getItem('oldUrl')
-      window.sessionStorage.setItem('isLogin',true)
-      window.sessionStorage.setItem('user',JSON.stringify(user))
+      window.localStorage.setItem('isLogin',true)
+      window.localStorage.setItem('user',JSON.stringify(user))
       this.$router.push(oPath)
     },
     register(){this.$router.push('/register')},
