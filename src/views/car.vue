@@ -18,25 +18,6 @@
               <div class="li-r">
                 <p class="mgb-25">{{itm.name}}</p>
                 <p class="p2 color-999 mgb-25">{{itm.details}}</p>
-                <!-- 规格参数 -->
-                <ul v-if="itm.spec.color" class="spec">
-                  <template v-for="c in itm.spec.color">
-                    <li :class="{'on-li':selsctVal.includes(c) && classStr.indexOf(c) != -1,
-                    'no-li':selsctVal.length && classStr.indexOf(c) == -1,'odd':selsctVal.includes(c) && !exsitVal.length}" :key="c" @click="hanldSelect(itm,c)">{{c}}</li>
-                  </template>
-                </ul>
-                <ul v-if="itm.spec.size" class="spec">
-                  <template v-for="c in itm.spec.size">
-                    <li :class="{'on-li':selsctVal.includes(c)&& classStr.indexOf(c) != -1,
-                    'no-li':selsctVal.length && classStr.indexOf(c) == -1,'odd':selsctVal.includes(c) && !exsitVal.length}" :key="c" @click="hanldSelect(itm,c)">{{c}}</li>
-                  </template>
-                </ul>
-                <ul v-if="itm.spec.shape" class="spec">
-                  <template v-for="c in itm.spec.shape">
-                    <li :class="{'on-li':selsctVal.includes(c)&& classStr.indexOf(c) != -1,
-                    'no-li':selsctVal.length && classStr.indexOf(c) == -1,'odd':selsctVal.includes(c) && !exsitVal.length}" :key="c" @click="hanldSelect(itm,c)">{{c}}</li>
-                  </template>
-                </ul>
                 <div class="price">
                   <span class="color-red">¥{{itm.price}}</span>
                   <div><i @click="count('subtract',index,i)">-</i>{{itm.num}}<i class="color-red" @click="count('add',index,i)">+</i></div>
@@ -56,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="not-info">暂无任何商品信息！赶紧去购物...</div>
+  <div v-else class="not-info">购物车空空如也~</div>
 </template>
 
 <script>
@@ -69,9 +50,6 @@ export default {
       allFlag:false,
       aggregate:0,
       edit:true,
-      selsctVal:[],
-      exsitVal:[],
-      classStr:'',
     }
   },
   computed:{
@@ -184,60 +162,7 @@ export default {
       const price = flag?totalPrice+itemPrice:totalPrice-itemPrice
       this.aggregate = price
     },
-    //商品规格选项
-    hanldSelect(ele,param){
-      // console.log(ele.exsit);
-      // console.log(param);
-      let arr = []
-      let allVal = this.selsctVal
-      const oldExsit = this.exsitVal
-      const oldLen = oldExsit.length
-      const newExsit = ele.exsit
-      let vId = allVal.indexOf(param)
-      let oId = oldLen?oldExsit.findIndex(v=>v.includes(param)):-1
-
-      if(allVal.length && !oldLen && vId==-1){
-        return
-      }
-      else if(oldLen && oId==-1 && vId==-1){
-        return
-      }
-      else if(allVal.length && !oldLen && vId!=-1){
-         allVal.splice(vId,1)
-      }
-      else if(vId!=-1){
-        allVal.splice(vId,1)
-      }else if(vId==-1){
-        allVal.push(param)
-      }
-
-      console.log('=======================');
-     for (let k = 0; k < allVal.length; k++) {
-        const arg = newExsit.filter(v=>v.includes(allVal[k]))
-        arr = arg
-      }
-
-      let nVal = []
-      allVal.forEach(ele => {
-        if(arr.length){
-          let str = arr.join()
-          const t = str.includes(ele)
-          if(t)nVal.push(ele)
-        }else{
-          nVal.push(ele)
-        }
-      });
-      const str = arr.join()
-      
-      console.log('已选项',nVal);
-      console.log('规格',arr);
-      console.log('规格字段',str);
-      
-      this.exsitVal = arr
-      this.classStr = str
-      this.selsctVal = nVal
-    },
-    
+   
     // 编辑/完成
     editCar(flag){
       this.edit = flag?true:false
@@ -334,32 +259,6 @@ export default {
         background: #eee;
         padding: .1rem;
         border-radius: .1rem;
-      }
-      .spec{
-        display: flex;
-        align-items: center;
-        margin-bottom: .25rem;
-        li{
-          padding: .1rem .2rem;
-          border: 1px solid #999;
-          border-radius: .1rem;
-          margin-right: .2rem;
-        }
-        .no-li{
-          color: #ccc;
-          background: #eee;
-          border: 1px solid #ddd;
-        }
-        .on-li{
-          color: #108ee9;
-          border: 1px solid #108ee9;
-          background: #fff;
-        }
-        .no-li.odd{
-          color: #108ee9;
-          border: 1px solid #108ee9;
-          background: #fff;
-        }
       }
       .price{
         display: flex;

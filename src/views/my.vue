@@ -3,7 +3,8 @@
   <div class="wrap">
     <div v-if="showBox" class="head">
       <img src="../assets/logo.png" alt="">
-      <p>{{userInfo.name}}</p>
+      <p>Hi~admin</p>
+      <!-- <p>{{userInfo.name}}</p> -->
     </div>
     <div v-if="!showBox" class="not-info">暂无个人信息，请登录</div>
     <div v-if="showBox" class="btn" @click="logout">退出登录</div>

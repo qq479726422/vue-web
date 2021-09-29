@@ -1,18 +1,25 @@
 <!-- 底部切换栏 -->
 <template>
-  <div class="bar">
-    <router-link to="/">首页</router-link>
-    <router-link to="/car">购物车</router-link>
-    <router-link to="/my">个人</router-link>
-  </div>
+  <van-tabbar v-show="showBar" v-model="active" route>
+    <van-tabbar-item replace to="/home" icon="shop-o">首页</van-tabbar-item>
+    <van-tabbar-item replace to="/car" icon="cart-o">购物车</van-tabbar-item>
+    <van-tabbar-item replace to="/my" icon="user-o">个人</van-tabbar-item>
+  </van-tabbar>
 </template>
 
 <script>
 export default {
   name: "switchBar",
+  props:{
+    showBar: {
+      type: Boolean,
+      default: true
+    },
+  },
   components: {},
   data () {
     return {
+      active:'home'
     };
   },
   created() {},

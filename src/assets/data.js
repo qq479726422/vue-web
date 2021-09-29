@@ -11,7 +11,7 @@ const listState  = [
       price: 25, 
       num: 1,
       spec: {},
-      exsit:[]
+      existing:[]
     },{
       goodsId: 2,
       thumb: "https://tva1.sinaimg.cn/large/00831rSTgy1gczok56tkzj30m80m8qe4.jpg", 
@@ -20,7 +20,7 @@ const listState  = [
       price: 88,
       num: 1,
       spec: {},
-      exsit:[]
+      existing:[]
     },
 	]
  },{
@@ -37,10 +37,10 @@ const listState  = [
       spec: {
         color: ['红', '绿', '蓝'],
         size:['大','中','小'],
-        shape:['长','宽','高'],
+        // shape:['长','宽','高'],
        },
-      // exsit:['红-大','红-小','绿-中','绿-大']
-      exsit:['红-大-宽','红-小-高','绿-中-宽','蓝-中-长']
+      existing:['红-大','红-小','绿-中','绿-大']
+      // existing:['红-大-宽','红-小-高','绿-中-宽','蓝-中-长']
     } 
 	] 
  }

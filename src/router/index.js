@@ -12,9 +12,12 @@ router.beforeEach((to, from, next) => {
     // console.log('from', from);
 
 window.localStorage.setItem('oldUrl',from.path)
-if (to.meta.requiresAuth) {
+if (to.meta.auth) {
     const flag = window.localStorage.getItem('isLogin') || false
-    if (!flag) router.replace({ path: '/login' })
+    if (!flag) {
+        router.replace({ path: '/login' })
+        return
+    }
 }
 next()
    

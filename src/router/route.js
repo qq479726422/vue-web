@@ -4,6 +4,7 @@ import home from "../views/home";
 import login from "../views/login";
 import my from "../views/my";
 import register from "../views/register";
+import details from "../views/details";
 
 //requiresAuth 是否需要验证登录
 //showBar 是否需要底部导航栏
@@ -18,9 +19,14 @@ const routes = [
         // meta: { requiresAuth: true }
     },
     {
+        path:"/details",
+        component: details,
+         meta: { showBar: false }
+    },
+    {
         path:"/car",
         component: car,
-        meta: { requiresAuth: true }
+        meta: { auth: true }
     },
     {
         path:"/login",
@@ -30,7 +36,7 @@ const routes = [
      {
         path:"/my",
         component: my,
-        meta: { requiresAuth: true }
+        meta: { auth: true }
     },
      {
         path:"/register",
