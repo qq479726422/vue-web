@@ -1,12 +1,12 @@
 <!-- home -->
 <template>
-  <div class="home">
+  <div v-if="list.length" class="home">
     <template v-for="(item,index) in list">
       <div :key="index" class="goods-item">
         <p class="title"><i class="line"></i>{{item.vendorName}}<i class="line"></i></p>
         <ul class="item">
           <template v-for="(i,n) in item.goods">
-            <li :key="n" @click="toDetails(item.vendorId,i)">
+            <li :key="n" @click="toDetails(i.goodsId)">
               <img width="150" height="150" :src="i.thumb" alt="">
               <div class="name">{{i.name}}</div>
               <div class="price">¥{{i.price}}.00</div>
@@ -16,28 +16,37 @@
       </div>
     </template>
   </div>
+  <div v-else class="not-goods">暂无商品~</div>
 </template>
 
 <script>
-import { listState } from '../assets/data'
+import { getList } from "../plugins/api";
 export default {
   name: "home",
   components: {},
   data () {
     return {
-      list:listState,
+      list:[],
     };
   },
   created() {
-    console.log(this.list);
+    this.getData()
   },
   mounted() {},
   computed: {},
   methods: {
-    toDetails(id,item){
-      const json = JSON.stringify(item)
-      window.sessionStorage.setItem('goods',json)
-      this.$router.push({path:'/details', query:{ vid:id }} )
+    getData(){
+      getList().then(res=>{
+        console.log(res);
+        if(res.code==200){
+          this.list = res.data.list
+        }
+      }).catch(err=>console.log(err))
+    },
+    toDetails(id){
+      // const json = JSON.stringify(item)
+      // window.sessionStorage.setItem('goods',json)
+      this.$router.push(`/details/${id}`)
       }
   }
 }
@@ -92,5 +101,10 @@ export default {
       }
     }
   }
+}
+.not-goods{
+  font-size: .32rem;
+  text-align: center;
+  padding-top: 5rem;
 }
 </style>

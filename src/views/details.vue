@@ -1,6 +1,6 @@
 <!-- 详情 -->
 <template>
-  <div class="wrap">
+  <div v-if="details" class="wrap">
     <img class="img" :src="details.thumb" alt="">
     <div class="card">
       <p>{{details.name}}</p>
@@ -60,13 +60,14 @@
 </template>
 
 <script>
+import { getDetail } from "../plugins/api";
 export default {
   name: "detail",
   components: { },
   data () {
     return {
-      details:{},
-      vid:'',
+      details:"",
+      id:'',
       selsctVal:[],
       exsitVal:[],
       classStr:'',
@@ -79,9 +80,8 @@ export default {
    
   },
   created() {
-    this.vid = this.$route.query.vid
-    const json = JSON.parse(window.sessionStorage.getItem('goods')) || {}
-    this.details = json
+    const id = this.$route.params.id
+    this.getData(id)
   },
   mounted() {},
   computed: {
@@ -105,6 +105,14 @@ export default {
     }
   },
   methods: {
+    getData(id){
+      getDetail({id:id}).then(res=>{
+        console.log(res);
+        if(res.code==200){
+          this.details = res.data
+        }
+      }).catch(err=>console.log(err))
+    },
     // 导航
     nextTo(param){
       const path  = {
@@ -122,6 +130,7 @@ export default {
       }
       this.$toast('客服忙线中...');
     },
+    //购买、加入购物车按钮
     buyGoods(param){
       this.buyType = param
       const isLogin = window.localStorage.getItem('isLogin') || false
@@ -138,7 +147,7 @@ export default {
           this.$toast.success('已加入购物车');
         },
         b:()=>{
-          this.$toast.success('下单成功！');
+          this.$router.push('/orderDetail')
         }
       }
       plan[type]()

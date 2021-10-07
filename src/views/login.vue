@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { postLogin } from "../plugins/api";
 
 export default {
   name: "login",
@@ -32,24 +33,15 @@ export default {
   methods: {
     //登录
     login(){
-      // const userInfo = JSON.parse(window.localStorage.getItem('userInfo')) || []
+      const params = {
+        name:this.name,
+        password:this.password,
+      }
       const name = this.name
       const password = this.password
-      // const filterUser = userInfo.filter(v=>v.account==name)
-      // const user = filterUser[0]
-      const isName = name=='admin'?true:false
-      const isPassword = password==123?true:false
-      // console.log('userInfo',userInfo);
       if(!name){
         this.$toast({
           message: '用户账户不能为空',
-          position: 'top',
-        });
-        return
-      }
-      if(!isName){
-        this.$toast({
-          message: '用户账户不存在',
           position: 'top',
         });
         return
@@ -61,18 +53,20 @@ export default {
         });
         return
       }
-      if(!isPassword){
-        this.$toast({
-          message: '用户密码错误',
-          position: 'top',
-        });
-        return
-      }
-      const oPath = window.localStorage.getItem('oldUrl')
-      window.localStorage.setItem('isLogin',true)
-      // window.localStorage.setItem('user',JSON.stringify(user))
-      this.$toast.success('登录成功')
-      this.$router.push(oPath)
+     
+      postLogin(params).then(res=>{
+        if(res.code==200){
+          this.$toast.success(res.data);
+          window.localStorage.setItem('isLogin',true)
+          const oPath = window.localStorage.getItem('oldUrl')
+          this.$router.push(oPath)
+        }else{
+           this.$toast(res.data);
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
+     
     },
     //注册
     register(){this.$router.push('/register')},
