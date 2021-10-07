@@ -124,7 +124,7 @@ export default {
     // 客服
     kefu(){
       const isLogin = window.localStorage.getItem('isLogin') || false
-      if(isLogin){
+      if(!isLogin){
          this.$router.push('/login')
          return
       }
