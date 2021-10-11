@@ -59,7 +59,7 @@ export default {
           this.$toast.success(res.data);
           window.localStorage.setItem('isLogin',true)
           const oPath = window.localStorage.getItem('oldUrl')
-          this.$router.push(oPath)
+          this.$router.replace(oPath)
         }else{
            this.$toast(res.data);
         }

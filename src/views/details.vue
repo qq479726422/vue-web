@@ -119,13 +119,13 @@ export default {
         home:'/home',
         car:'/car',
       }
-      this.$router.replace(path[param])
+      this.$router.push(path[param])
     },
     // 客服
     kefu(){
       const isLogin = window.localStorage.getItem('isLogin') || false
       if(!isLogin){
-         this.$router.push('/login')
+         this.$router.replace('/login')
          return
       }
       this.$toast('客服忙线中...');
@@ -135,7 +135,7 @@ export default {
       this.buyType = param
       const isLogin = window.localStorage.getItem('isLogin') || false
       if(!isLogin){
-        this.$router.push('/login')
+        this.$router.replace('/login')
         return
       }
       this.showPopup = true

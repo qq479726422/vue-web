@@ -52,7 +52,7 @@ module.exports = {
     // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
     proxy: {
           '/api': {
-                target: 'http://localhost:3000',
+                target: 'http://localhost:4000',
                 changeOrigin: true,
                 secure: false,
                 // ws: true,
