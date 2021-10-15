@@ -50,7 +50,7 @@ const routes = [
     {
         path:"/car",
         component: car,
-        meta: { auth: true }
+        // meta: { auth: true }
     },
     {
         path:"/login",
@@ -60,7 +60,7 @@ const routes = [
      {
         path:"/my",
         component: my,
-        meta: { auth: true }
+        // meta: { auth: true }
     },
      {
         path:"/register",

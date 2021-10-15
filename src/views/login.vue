@@ -58,8 +58,9 @@ export default {
         if(res.code==200){
           this.$toast.success(res.data);
           window.localStorage.setItem('isLogin',true)
-          const oPath = window.localStorage.getItem('oldUrl')
-          this.$router.replace(oPath)
+          // const oPath = window.localStorage.getItem('oldUrl')
+          // this.$router.replace(oPath)
+          this.$router.go(-1)
         }else{
            this.$toast(res.data);
         }

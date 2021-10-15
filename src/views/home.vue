@@ -16,7 +16,9 @@
       </div>
     </template>
   </div>
+  <div v-else-if="loading && !list.length" class="loading"><van-loading type="spinner"  color="#1989fa" size="26"/></div>
   <div v-else class="not-goods">暂无商品~</div>
+
 </template>
 
 <script>
@@ -27,6 +29,7 @@ export default {
   data () {
     return {
       list:[],
+      loading:true,
     };
   },
   created() {
@@ -38,10 +41,14 @@ export default {
     getData(){
       getList().then(res=>{
         console.log(res);
+        this.loading = false
         if(res.code==200){
-          this.list = res.data.list
+          // this.list = res.data.list
         }
-      }).catch(err=>console.log(err))
+      }).catch(err=>{
+        this.loading = false
+        console.log(err)
+      })
     },
     toDetails(id){
       // const json = JSON.stringify(item)
@@ -106,5 +113,13 @@ export default {
   font-size: .32rem;
   text-align: center;
   padding-top: 5rem;
+}
+.loading{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

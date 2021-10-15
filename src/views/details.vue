@@ -125,7 +125,7 @@ export default {
     kefu(){
       const isLogin = window.localStorage.getItem('isLogin') || false
       if(!isLogin){
-         this.$router.replace('/login')
+         this.$router.push('/login')
          return
       }
       this.$toast('客服忙线中...');
@@ -135,7 +135,7 @@ export default {
       this.buyType = param
       const isLogin = window.localStorage.getItem('isLogin') || false
       if(!isLogin){
-        this.$router.replace('/login')
+        this.$router.push('/login')
         return
       }
       this.showPopup = true
@@ -269,7 +269,6 @@ export default {
       font-size: .32rem;
       display: flex;
       align-items: center;
-      border-radius: .4rem;
       border-radius: .5rem;
       overflow: hidden;
       margin-right: .1rem;

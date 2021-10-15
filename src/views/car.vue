@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 <template>
-  <div v-if="list.length" class="car">
+  <div v-if="isLogin && list.length" class="car">
     <div class="head">
       <span @click="editCar(false)" v-show="edit">编辑</span>
       <span @click="editCar(true)" v-show="!edit">完成</span>
@@ -37,7 +37,8 @@
       </div>
     </div>
   </div>
-  <div v-else class="not-info">购物车空空如也~</div>
+  <div v-else-if="isLogin && !list.length" class="not-info">购物车空空如也~</div>
+  <div v-else class="not-login">暂无购物车信息，请<router-link to="/login">登录</router-link>后再查看~</div>
 </template>
 
 <script>
@@ -46,31 +47,17 @@ export default {
   name: 'car',
  data () {
     return {
-      list:[],
+      list: listState || [],
+      isLogin:false,
       allFlag:false,
       aggregate:0,
       edit:true,
     }
   },
-  computed:{
-    lists:function (){
-      const arr = listState
-      for (let i = 0; i < arr.length; i++) {
-        let item = arr[i]
-        item.flag = false
-        for (let j = 0; j < item.goods.length; j++) {
-          const itm = item.goods[j]
-          itm.flag = false
-        }
-      }
-      return arr
-    }
-  },
+  computed:{},
   created(){
-    this.list = this.lists
-    // console.log('====================================');
-    // console.log(this.list);
-    // console.log('====================================');
+    const flag = window.localStorage.getItem('isLogin') || false
+    this.isLogin = flag
   },
   methods:{
     // 商品数量加减
@@ -275,6 +262,7 @@ export default {
   }
 }
 .not-info{font-size: .35rem;text-align: center;padding-top: 2rem;}
+.not-login{font-size: .35rem;text-align: center;padding-top: 2rem;}
 .fixed-foot{
   display: flex;
   align-items: center;

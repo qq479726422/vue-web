@@ -6,7 +6,7 @@
       <p>Hi~admin</p>
       <!-- <p>{{userInfo.name}}</p> -->
     </div>
-    <div v-if="!showBox" class="not-info">暂无个人信息，请登录</div>
+    <div v-if="!showBox" class="not-info">暂无个人信息，请登录~</div>
     <div v-if="showBox" class="btn" @click="logout">退出登录</div>
     <div v-if="!showBox" class="btn" @click="login">登录</div>
 
@@ -56,7 +56,7 @@ export default {
       font-size: .3rem;
     }
   }
-  .not-info{font-size: .3rem;text-align: center;}
+  .not-info{font-size: .35rem;text-align: center;}
   .btn{
     position: fixed;
     bottom: 10%;

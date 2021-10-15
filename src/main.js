@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from "./router"
 import {
   GoodsAction, GoodsActionIcon, GoodsActionButton, Toast, Popup, Button, Stepper,
-  Tabbar, TabbarItem, CountDown, SubmitBar, Card, Icon, AddressList,AddressEdit
+  Tabbar, TabbarItem, CountDown, SubmitBar, Card, Icon, AddressList, AddressEdit,Loading 
 } from 'vant';
 
 import '@/assets/reset.css'
@@ -26,6 +26,7 @@ Vue.use(Card);
 Vue.use(Icon);
 Vue.use(AddressList);
 Vue.use(AddressEdit);
+Vue.use(Loading);
 
 Vue.config.productionTip = false
 new Vue({

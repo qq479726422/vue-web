@@ -11,7 +11,7 @@ router.beforeEach((to, from, next) => {
     // console.log('to', to);
     // console.log('from', from);
 
-window.localStorage.setItem('oldUrl',from.path)
+// window.localStorage.setItem('oldUrl',from.path)
 if (to.meta.auth) {
     const flag = window.localStorage.getItem('isLogin') || false
     if (!flag) {
